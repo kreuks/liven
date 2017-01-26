@@ -14,3 +14,4 @@ dependencies:
       - pathlib
       - request
       - progressbar
+      - pytest-pep8

@@ -86,7 +86,6 @@ class TrainingData(object):
             self.intent_examples.append({"text": text, "intent": intent})
             self.entity_examples.append({"text": text, "intent": intent, "entities": entities})
 
-
     def load_luis_data(self, filename):
         warnings.warn(
             """LUIS data may not always be correctly imported because entity locations are specified by tokens.
