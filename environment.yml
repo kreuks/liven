@@ -1,0 +1,16 @@
+name: liven
+dependencies:
+  - python=2.7.12
+  - pip=8.1.2
+  - numpy
+  - scipy
+  - scikit-learn=0.18.1
+  - pathlib
+  - cloudpickle
+  - boto3
+  - pep8
+  - request
+  - progressbar
+  - pip:
+      - git+http://github.com/mit-nlp/MITIE.git#egg=mitie
+      - spacy==1.2.0
