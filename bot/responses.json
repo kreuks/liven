@@ -1,0 +1,40 @@
+{
+  "greeting": [
+    "Yoih",
+    "Ealah elu lagi elu lagi bosen gw",
+    "Ngapain manggil gw ?",
+    "Halo bro, dapaa ?"
+  ],
+  "spotify": {
+    "track": [
+      "Nih gw puterin lagu buat lo {}",
+      "Siap, {}",
+      "Oh lagu {}",
+      "Ah siap, {}"
+    ],
+    "artist": [
+      "lo mau dari {} ya ? gw cuma tau lagu ini sih \n{}",
+      "Oh lu mau dari artis {} ya? Oke deh ini \n{}",
+      "Banyak maunya lo, yang gw tau kalo dari {} cuma ini sih \n{}"
+    ]
+  },
+  "activity":{
+    "hasEventRemember": [
+      "Kamu punya agenda bro, {}",
+      "Lu punya acara vroh, {}"
+    ],
+    "hasEventForget":[
+      "Eh lu lupa ya, lu kan mesti {}",
+      "Heh lu ga boleh pergi, lu kan mesti {}"
+    ],
+    "noEvent": [
+      "Lu ga punya acara, tapi mendingan {}"
+    ]
+  },
+  "unidentified": [
+    "Lu ngomong apaan sih?",
+    "Sorry ga paham gw",
+    "Lu mau apa ?",
+    "Ga jelas ah omongan lu"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "kreuks",
+  "config": {
+    "min_confidence_level": 0.65
+  },
+  "google": {
+    "client_secret_file": "~/client_secret.json"
+  }
+}
