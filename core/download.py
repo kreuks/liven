@@ -7,7 +7,8 @@ from core.config import RasaNLUConfig
 def create_argparser():
     parser = argparse.ArgumentParser(description='parse download commands')
     parser.add_argument('-c', '--config',
-                        help="config file, all the command line options can also be passed via a (json-formatted) " +
+                        help="config file, all the command line options can also be passed via a "
+                             "(json-formatted) " +
                              "config file. NB command line args take precedence")
     parser.add_argument('-p', '--package',
                         help='package to be downloaded',
