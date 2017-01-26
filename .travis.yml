@@ -21,6 +21,6 @@ install:
 
   - conda env create -f environment.yml
   - source activate liven
-  - python -m spacy.en.download all
+  - python -m spacy.en.download all > jnk
 
-script: py.test --pep8
+script:
