@@ -22,5 +22,10 @@ install:
   - conda env create -f environment.yml
   - source activate liven
   - python -m spacy.en.download all > jnk
+env:
+  - CODE_CLIMATE_AT=$CODE_CLIMATE_TOKEN
 
-script: py.test --pep8
+script:
+  - py.test --pep8
+after_sucess:
+  - CODECLIMATE_REPO_TOKEN=CODE_CLIMATE_AT codeclimate-test-reporter
