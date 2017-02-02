@@ -7,8 +7,8 @@ import glob
 import warnings
 import logging
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from core.train import do_train
-from core.config import RasaNLUConfig
+from algo.train import do_train
+from algo.config import RasaNLUConfig
 
 
 class RasaNLUServer(object):
@@ -21,7 +21,7 @@ class RasaNLUServer(object):
         self.data_router = DataRouter(config, self.interpreter, self.emulator)
 
         if 'DYNO' in os.environ and config.backend == 'mitie':  # running on Heroku
-            from core.featurizers.mitie_featurizer import MITIEFeaturizer
+            from algo.featurizers.mitie_featurizer import MITIEFeaturizer
             MITIEFeaturizer(config.mitie_file)
 
     def __create_interpreter(self):
@@ -32,7 +32,7 @@ class RasaNLUServer(object):
             # download model from S3 if needed
             if not os.path.isdir(model_dir):
                 try:
-                    from core.persistor import Persistor
+                    from algo.persistor import Persistor
                     p = Persistor(self.config.path, self.config.aws_region, self.config.bucket_name)
                     p.fetch_and_extract('{0}.tar.gz'.format(os.path.basename(model_dir)))
                 except:

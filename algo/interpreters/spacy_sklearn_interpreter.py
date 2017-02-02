@@ -1,9 +1,9 @@
-from core import Interpreter
+from algo import Interpreter
 
 import cloudpickle
 import spacy
-from core.featurizers.spacy_featurizer import SpacyFeaturizer
-from core.extractors.spacy_entity_extractor import SpacyEntityExtractor
+from algo.featurizers.spacy_featurizer import SpacyFeaturizer
+from algo.extractors.spacy_entity_extractor import SpacyEntityExtractor
 
 
 class SpacySklearnInterpreter(Interpreter):

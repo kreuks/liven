@@ -6,7 +6,7 @@ import re
 import warnings
 from itertools import groupby
 
-from core import util
+from algo import util
 
 
 class TrainingData(object):
@@ -22,13 +22,13 @@ class TrainingData(object):
         self.min_examples_per_entity = 2
 
         if backend in ['mitie', 'mitie_sklearn']:
-            from core.tokenizers.mitie_tokenizer import MITIETokenizer
+            from algo.tokenizers.mitie_tokenizer import MITIETokenizer
             self.tokenizer = MITIETokenizer()
         elif backend in ['spacy_sklearn']:
-            from core.tokenizers.spacy_tokenizer import SpacyTokenizer
+            from algo.tokenizers.spacy_tokenizer import SpacyTokenizer
             self.tokenizer = SpacyTokenizer(language_name)
         else:
-            from core.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
+            from algo.tokenizers.whitespace_tokenizer import WhitespaceTokenizer
             self.tokenizer = WhitespaceTokenizer()
             warnings.warn(
                 "backend not recognised by TrainingData : defaulting to tokenizing by splitting on whitespace")

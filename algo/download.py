@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-from core.config import RasaNLUConfig
+from algo.config import RasaNLUConfig
 
 
 def create_argparser():
@@ -20,7 +20,7 @@ def create_argparser():
 
 def download(config, pkg="mitie"):
     if pkg == "mitie":
-        from core.featurizers.mitie_featurizer import MITIEFeaturizer
+        from algo.featurizers.mitie_featurizer import MITIEFeaturizer
         MITIEFeaturizer(config.mitie_file)
     else:
         print "Error. Package {0} not available for download.".format(pkg)

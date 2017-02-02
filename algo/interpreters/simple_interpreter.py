@@ -1,4 +1,4 @@
-from core import Interpreter
+from algo import Interpreter
 
 
 class HelloGoodbyeInterpreter(Interpreter):

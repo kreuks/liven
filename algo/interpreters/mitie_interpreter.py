@@ -1,6 +1,6 @@
 from mitie import *
-from core import Interpreter
-from core.tokenizers.mitie_tokenizer import MITIETokenizer
+from algo import Interpreter
+from algo.tokenizers.mitie_tokenizer import MITIETokenizer
 import re
 
 

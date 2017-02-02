@@ -3,11 +3,11 @@ import os
 import datetime
 import json
 import cloudpickle
-import core.util
-from core.featurizers.spacy_featurizer import SpacyFeaturizer
-from core.classifiers.sklearn_intent_classifier import SklearnIntentClassifier
-from core.extractors.spacy_entity_extractor import SpacyEntityExtractor
-from core.trainers.trainer import Trainer
+import algo.util
+from algo.featurizers.spacy_featurizer import SpacyFeaturizer
+from algo.classifiers.sklearn_intent_classifier import SklearnIntentClassifier
+from algo.extractors.spacy_entity_extractor import SpacyEntityExtractor
+from algo.trainers.trainer import Trainer
 from training_utils import write_training_metadata
 
 

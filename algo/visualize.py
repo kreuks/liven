@@ -1,6 +1,6 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-from core.visualization import create_html
-from core.training_data import TrainingData
+from algo.visualization import create_html
+from algo.training_data import TrainingData
 import sys
 import logging
 

@@ -3,7 +3,7 @@ import os
 import datetime
 import json
 
-from core.trainers.trainer import Trainer
+from algo.trainers.trainer import Trainer
 from training_utils import write_training_metadata
 
 

@@ -1,6 +1,6 @@
 from mitie import named_entity_extractor, text_categorizer
-from core import Interpreter
-from core.tokenizers.mitie_tokenizer import MITIETokenizer
+from algo import Interpreter
+from algo.tokenizers.mitie_tokenizer import MITIETokenizer
 
 
 class MITIESklearnInterpreter(Interpreter):

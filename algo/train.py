@@ -37,7 +37,7 @@ def create_trainer(config):
 def create_persistor(config):
     persistor = None
     if "bucket_name" in config:
-        from core.persistor import Persistor
+        from algo.persistor import Persistor
         persistor = Persistor(config.path, config.aws_region, config.bucket_name)
 
     return persistor
@@ -60,7 +60,7 @@ def do_train(config):
 
 
 if __name__ == '__main__':
-    config = RasaNLUConfig(filename='core/config.json')
+    config = RasaNLUConfig(filename='algo/config.json')
     config = init()
     do_train(config)
     logging.info("done")
