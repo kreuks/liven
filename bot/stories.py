@@ -46,9 +46,7 @@ class Song(Story):
     def get_exact_context(cls, context):
         keyword = context[Context.SONG_SEARCH]
         spotify_result = cls._sp.search(keyword)['tracks']['items']
-        if not spotify_result:
-            return {}
-        elif spotify_result:
+        if spotify_result:
             for item in spotify_result:
                 if item['name'].lower() == keyword:
                     return {
@@ -66,6 +64,9 @@ class Song(Story):
                 'track': spotify_result[0]['name'],
                 'uri': spotify_result[0]['uri']
             }
+        else:
+            return {}
+
 
     def run(self, context):
         result = {}
