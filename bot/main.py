@@ -1,5 +1,6 @@
 import os
 import random
+import logging
 
 from wit import Wit
 from config import config
@@ -15,7 +16,13 @@ client = Wit(access_token=WIT_ACCESS_TOKEN)
 def process_message(sessions, data):
     chat_id = sessions.find_create_session(data['chat_id'])
     context = sessions.get_context(chat_id)
+    logging.info(
+        'previous_context: '.format(context)
+    )
     context.update(get_wit_response(data['message']))
+    logging.info(
+        'updated_context: '.format(context)
+    )
     sessions.update_context(chat_id, context)
     return get_story_response(sessions, chat_id)
 
@@ -23,12 +30,19 @@ def process_message(sessions, data):
 def get_story_response(sessions, chat_id):
     response = Stories.execute_stories(sessions.get_context(chat_id))
     sessions.update_context(chat_id, response['context'])
-    print 'response: {}\n'.format(response['response'])
+    logging.info(
+        'response: {}\n'.format(response['response'])
+    )
+    return response['response']
 
 
 def get_wit_response(message):
     response = client.message(message)
-    return get_summarized_entities(response, config['min_confidence_level'])
+    summarized_entities = get_summarized_entities(response, config['min_confidence_level'])
+    logging.info(
+        'summarized_entities: '.format(summarized_entities)
+    )
+    return summarized_entities
 
 
 if __name__ == '__main__':

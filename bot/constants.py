@@ -11,6 +11,7 @@ class Context(object):
     SPOTIFY = 'spotify'
     ACTIVITY = 'activity'
     ACTIVITY_REMEMBER = 'activity_remember'
+    EXPIRED = 'expired'
 
 
 class Google(object):
