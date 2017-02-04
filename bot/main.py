@@ -19,11 +19,11 @@ def process_message(sessions, data):
     chat_id = sessions.find_create_session(data['chat_id'])
     context = sessions.get_context(chat_id)
     logging.info(
-        'previous_context: {}'.format(context)
+        'previous_context: {}\n'.format(context)
     )
     context.update(get_wit_response(data['message']))
     logging.info(
-        'updated_context: {}'.format(context)
+        'updated_context: {}\n'.format(context)
     )
     sessions.update_context(chat_id, context)
     return get_story_response(sessions, chat_id)
@@ -32,6 +32,7 @@ def process_message(sessions, data):
 def get_story_response(sessions, chat_id):
     response = Stories.execute_stories(sessions.get_context(chat_id))
     sessions.update_context(chat_id, response['context'])
+    print sessions.get_context(chat_id)
     logging.info(
         'response: {}\n'.format(response['response'])
     )
@@ -41,11 +42,11 @@ def get_story_response(sessions, chat_id):
 def get_wit_response(message):
     response = client.message(message)
     logging.info(
-        'response: {}'.format(response)
+        'wit_response: {}\n'.format(response)
     )
     summarized_entities = get_summarized_entities(response, config['min_confidence_level'])
     logging.info(
-        'summarized_entities: {}'.format(summarized_entities)
+        'summarized_wit_entities: {}\n'.format(summarized_entities)
     )
     return summarized_entities
 
@@ -55,7 +56,7 @@ if __name__ == '__main__':
     while True:
         input_message = raw_input()
         data = {
-            'chat_id': random.randint(0, 9999),
+            'chat_id': 9999,
             'message': input_message
         }
         process_message(sessions, data)

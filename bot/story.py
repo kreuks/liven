@@ -1,11 +1,11 @@
-from bot import stories
+from bot.stories import base, greetings, play_song
 
 
 class Stories(object):
     _stories = [
-        stories.Greetings(),
-        stories.Song(),
-        stories.Activity()
+        greetings.Greetings(),
+        play_song.SongWithKeywords(),
+        base.Activity()
     ]
 
     @classmethod
