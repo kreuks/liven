@@ -8,6 +8,8 @@ from util import get_summarized_entities
 from story import Stories
 from sessions import Session
 
+logging.basicConfig(level=logging.INFO)
+
 
 WIT_ACCESS_TOKEN = os.environ.get('WIT_ACCESS_TOKEN', None)
 client = Wit(access_token=WIT_ACCESS_TOKEN)
@@ -17,11 +19,11 @@ def process_message(sessions, data):
     chat_id = sessions.find_create_session(data['chat_id'])
     context = sessions.get_context(chat_id)
     logging.info(
-        'previous_context: '.format(context)
+        'previous_context: {}'.format(context)
     )
     context.update(get_wit_response(data['message']))
     logging.info(
-        'updated_context: '.format(context)
+        'updated_context: {}'.format(context)
     )
     sessions.update_context(chat_id, context)
     return get_story_response(sessions, chat_id)
@@ -38,9 +40,12 @@ def get_story_response(sessions, chat_id):
 
 def get_wit_response(message):
     response = client.message(message)
+    logging.info(
+        'response: {}'.format(response)
+    )
     summarized_entities = get_summarized_entities(response, config['min_confidence_level'])
     logging.info(
-        'summarized_entities: '.format(summarized_entities)
+        'summarized_entities: {}'.format(summarized_entities)
     )
     return summarized_entities
 

@@ -3,7 +3,7 @@ from abc import abstractmethod, ABCMeta
 
 import spotipy
 
-from bot.constants import RESPONSES, Context
+from bot.constants import RESPONSES, Context, Intent
 from util import get_event
 
 
@@ -22,12 +22,12 @@ class Story(object):
 class Greetings(Story):
     def compliance(self, context):
         return (
-            Context.GREETING in context
+            Intent.GREETING in context.values()
         )
 
     def run(self, context):
-        response = RESPONSES[Context.GREETING]
-        context.pop(Context.GREETING, None)
+        response = RESPONSES[Intent.GREETING]
+        context.pop(Intent.GREETING, None)
         return {
             'context': context,
             'response': response[random.randint(0, len(response)-1)]
@@ -39,13 +39,15 @@ class Song(Story):
 
     def compliance(self, context):
         return (
-            Context.SONG in context and Context.SONG_SEARCH in context
+            Intent.PLAY_SONG in context.values() and Context.SONG_SEARCH in context
         )
 
     @classmethod
     def get_exact_context(cls, context):
         keyword = context[Context.SONG_SEARCH]
         spotify_result = cls._sp.search(keyword)['tracks']['items']
+        result = {}
+
         if spotify_result:
             for item in spotify_result:
                 if item['name'].lower() == keyword:
