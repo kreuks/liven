@@ -1,8 +1,6 @@
 import random
 from abc import abstractmethod, ABCMeta
 
-import spotipy
-
 from bot.constants import RESPONSES, Context, Intent
 from bot.util import get_event
 
