@@ -69,7 +69,6 @@ class Song(Story):
         else:
             return {}
 
-
     def run(self, context):
         result = {}
         response = RESPONSES[Context.SPOTIFY]
