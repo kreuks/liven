@@ -12,5 +12,6 @@ in Google Calendar.
 
 ### Env Variables
 - WIT_ACCESS_TOKEN
+- TELEGRAM_ACCESS_TOKEN
 
 If you interested to build this bot in bahasa, don't hesitate to contact me.
