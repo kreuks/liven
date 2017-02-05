@@ -44,7 +44,7 @@ class SongWithKeywords(Story):
         result = {}
         response = RESPONSES[Context.SPOTIFY]
         exact_content = self.get_exact_context(context)
-        context = {k:v for k,v in context.items() if v != 'play_song' and k != 'song_search'}
+        context = {k: v for k, v in context.items() if v != 'play_song' and k != 'song_search'}
         if exact_content.get('track', None):
             result.update(
                 {
