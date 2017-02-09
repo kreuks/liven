@@ -81,3 +81,7 @@ def get_summarized_entities(entities, min_confidence):
         if confidence >= min_confidence:
             result[entity] = values[0]['value']
     return result
+
+
+def get_message_text(response):
+    return {'text': response['_text']}

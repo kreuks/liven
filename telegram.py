@@ -23,9 +23,12 @@ class User(telepot.helper.ChatHandler):
             'message': msg['text']
         }
 
-        bot_response = process_message(session, data)
-
+        bot_response, delay = process_message(session, data)
         self.sender.sendMessage(bot_response)
+        if delay:
+            data['message'] = ''
+            bot_response, delay = process_message(session, data)
+            self.sender.sendMessage(bot_response)
 
     def on__idle(self, event):
         session.destroy_session(event['_idle']['source']['id'])

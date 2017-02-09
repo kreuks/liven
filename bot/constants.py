@@ -11,11 +11,15 @@ class Context(object):
     ACTIVITY = 'activity'
     ACTIVITY_REMEMBER = 'activity_remember'
     EXPIRED = 'expired'
+    TEXT = 'text'
+    SEARCH_KEYWORD = 'search_keyword'
+    SEARCH_WEB = 'search_web'
 
 
 class Intent(object):
     PLAY_SONG = 'play_song'
     GREETING = 'greeting'
+    ASK = 'ask'
 
 
 class Google(object):

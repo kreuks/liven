@@ -1,11 +1,13 @@
-from bot.stories import base, greetings, play_song
+from bot.stories import base, greetings, play_song, web_search
 
 
 class Stories(object):
     _stories = [
         greetings.Greetings(),
         play_song.SongWithKeywords(),
-        base.Activity()
+        base.Activity(),
+        web_search.WebSearchDelay(),
+        web_search.WebSearchWithKeyword()
     ]
 
     @classmethod

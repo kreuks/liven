@@ -18,6 +18,11 @@
       "Banyak maunya lo, yang gw tau kalo dari {} cuma ini sih \n{}"
     ]
   },
+  "search_web": [
+    "Hmm, {} ya? \nTak mikir dulu coy\n",
+    "Oh {} ya \nGw cari2 dulu deh\n",
+    "Hmmmm sulit nih\nKalo {} cuma tau ini sih\n"
+  ],
   "activity":{
     "hasEventRemember": [
       "Kamu punya agenda bro, {}",
