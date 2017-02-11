@@ -85,3 +85,13 @@ def get_summarized_entities(entities, min_confidence):
 
 def get_message_text(response):
     return {'text': response['_text']}
+
+
+def get_result_story(delay=False, typo=False):
+    return {
+        'context': {},
+        'response': '',
+        'delay': delay,
+        'typo': typo,
+        'image': None,
+    }

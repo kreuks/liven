@@ -14,12 +14,16 @@ class Context(object):
     TEXT = 'text'
     SEARCH_KEYWORD = 'search_keyword'
     SEARCH_WEB = 'search_web'
+    SEARCH_DIRECTION = 'search_direction'
+    ORIGIN = 'origin'
+    DESTINATION = 'destination'
 
 
 class Intent(object):
     PLAY_SONG = 'play_song'
     GREETING = 'greeting'
     ASK = 'ask'
+    DIRECTION = 'direction'
 
 
 class Google(object):

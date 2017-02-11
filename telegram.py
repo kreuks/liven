@@ -1,5 +1,6 @@
 import os
 import random
+from urllib2 import urlopen
 
 import telepot
 from telepot.delegate import pave_event_space, per_chat_id, create_open
@@ -13,6 +14,9 @@ session = Session()
 
 class User(telepot.helper.ChatHandler):
     def __init__(self, *args, **kwargs):
+        self.image = None
+        self.bot_response = ''
+        self.delay = None
         super(User, self).__init__(*args, **kwargs)
 
     def on_chat_message(self, msg):
@@ -23,12 +27,16 @@ class User(telepot.helper.ChatHandler):
             'message': msg['text']
         }
 
-        bot_response, delay = process_message(session, data)
-        self.sender.sendMessage(bot_response)
-        if delay:
+        self.bot_response, self.delay, self.image = process_message(session, data)
+        self.sender.sendMessage(self.bot_response)
+        if self.delay:
             data['message'] = ''
-            bot_response, delay = process_message(session, data)
-            self.sender.sendMessage(bot_response)
+            self.bot_response, self.delay, self.image = process_message(session, data)
+            self.sender.sendMessage(self.bot_response)
+            self.sender.sendPhoto(urlopen(self.image)) if self.image else None
+
+
+
 
     def on__idle(self, event):
         session.destroy_session(event['_idle']['source']['id'])

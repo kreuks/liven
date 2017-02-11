@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from utils import _get_search_url, get_html
+from utils import get_search_url, get_html
 from bs4 import BeautifulSoup
 import urlparse
 from urllib2 import unquote
@@ -59,7 +59,7 @@ def search(query, pages=1, lang='en', void=True):
     results = []
     complete_description = {}
     for i in range(pages):
-        url = _get_search_url(query, i, lang=lang)
+        url = get_search_url(query, i, lang=lang)
         html = get_html(url)
 
         if html:
@@ -73,6 +73,7 @@ def search(query, pages=1, lang='en', void=True):
                 complete_description['description'] = _complete_desc(complete_desc)
                 complete_description['born'] = _complete_born(complete_desc)
                 complete_description['image'] = _complete_image(soup)
+                complete_description['complete'] = _complete_description(complete_desc)
 
             j = 0
             for li in divs:
@@ -99,33 +100,55 @@ def search(query, pages=1, lang='en', void=True):
 def _complete_name(li):
     try:
         result = li[0].find("div", attrs={"class": "_B5d"})
-        if result: return result.text.strip()
-    except IndexError:
+        if result:
+            return result.text.strip()
+    except KeyError:
         return None
 
 def _complete_tag(li):
     try:
         result = li[0].find("div", attrs={"class": "_zdb _Pxg"})
         if result: return result.text.strip()
-    except IndexError:
+    except KeyError:
         return None
 
 def _complete_desc(li):
     try:
-        return li[1].text.strip().encode('ASCII', 'replace')
-    except IndexError:
+        return li[1].text.strip().encode('ASCII', 'replace').replace('Wikipedia', '')
+    except KeyError:
         return None
 
 def _complete_born(li):
     try:
         return li[3].text.strip().replace("Born: ", "").encode('ASCII', 'replace')
-    except IndexError:
+    except KeyError:
         return None
 
 def _complete_image(li):
     try:
-        return li.findAll("div", attrs={"class": "_x8d"})[0].find("img")["src"]
+        image_link = li.findAll("div", attrs={"class": "_x8d"})[0].find("img")["src"]
+        return None if image_link.startswith('/') else image_link
     except (TypeError, IndexError):
+        return None
+
+def _complete_description(li):
+    name = _complete_name(li)
+    review_result = li[2].find('div', attrs={'class': '_POh'})
+    if name and review_result:
+        result = name + '\n'
+        for row in li[3:-1]:
+            row = row.text.strip().replace('Wikipedia', '')
+            if row == 'PetunjukSitus Web': continue
+            result = result + '\n' + row
+        return  result
+    elif name and not review_result:
+        result = name + '\n'
+        for row in li[1:]:
+            row = row.text.strip().replace('Wikipedia', '')
+            if row == 'PetunjukSitus Web': continue
+            result = result + '\n' + row
+        return result
+    else:
         return None
 
 def _get_name(li):

@@ -1,4 +1,4 @@
-from bot.stories import base, greetings, play_song, web_search
+from bot.stories import base, greetings, play_song, web_search, direction
 
 
 class Stories(object):
@@ -7,7 +7,9 @@ class Stories(object):
         play_song.SongWithKeywords(),
         base.Activity(),
         web_search.WebSearchDelay(),
-        web_search.WebSearchWithKeyword()
+        web_search.WebSearchWithKeyword(),
+        direction.DirectionDelay(),
+        direction.Direction()
     ]
 
     @classmethod

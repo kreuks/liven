@@ -32,11 +32,10 @@ def get_story_response(sessions, chat_id):
     response = Stories.execute_stories(sessions.get_context(chat_id))
     sessions.update_context(chat_id, response['context'])
     logging.info(
-        'response: {}\n'.format(response['response'])
+        'response: ' + (response['response']) + '\n'
     )
-    delay = False if 'delay' not in response else True
 
-    return response['response'], delay
+    return response['response'], response['delay'], response['image']
 
 
 def get_wit_response(message):

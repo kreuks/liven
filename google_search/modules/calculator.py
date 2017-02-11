@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from unidecode import unidecode
 
 from utils import get_html_from_dynamic_site
-from utils import _get_search_url
+from utils import get_search_url
 from bs4 import BeautifulSoup
 
 
@@ -42,7 +42,7 @@ def calculate(expr):
     Returns:
         CalculatorResult object."""
 
-    url = _get_search_url(expr)
+    url = get_search_url(expr)
     html = get_html_from_dynamic_site(url)
     bs = BeautifulSoup(html)
 
