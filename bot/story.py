@@ -9,7 +9,8 @@ class Stories(object):
         web_search.WebSearchDelay(),
         web_search.WebSearchWithKeyword(),
         direction.DirectionDelay(),
-        direction.Direction()
+        direction.Direction(),
+        direction.DirectionFlight()
     ]
 
     @classmethod

@@ -21,6 +21,7 @@ convert_currency = currency.convert
 exchange_rate = currency.exchange_rate
 calculate = calculator.calculate
 direction = direction_search.direction
+flight_direction = direction_search.direction_flight
 
 
 # TODO: This method is not working anymore! There is a new GET

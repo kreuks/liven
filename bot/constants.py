@@ -23,8 +23,8 @@ class Intent(object):
     PLAY_SONG = 'play_song'
     GREETING = 'greeting'
     ASK = 'ask'
-    DIRECTION = 'direction'
-
+    SEARCH_DIRECTION = 'direction'
+    SEARCH_FLIGHT = 'search_flight'
 
 class Google(object):
     SCOOPES = 'https://www.googleapis.com/auth/calendar.readonly'

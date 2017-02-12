@@ -22,22 +22,46 @@ def direction(query, lang='en'):
         paths.append(x.text.strip())
     result['directions'] = paths
 
-    result['flight_direction'] = True if soup.findAll('div', attrs={'class': '_s2'}) else False
+    li = soup.findAll('div', attrs={'class': '_s2'})
+    result['flight_available'] = True if li else False
+
+    result['flight_direction'] = direction_flight(li=li) if result['flight_available'] else None
 
     result['link'] = 'https://www.google.com' + link[0].find('a')['href'] if link else ''
+
     return result
 
 
-def direction_flight(li):
-    res = li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'}) + \
-          li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
-    for x in res:
-        link = x.find('a')['href']
-        flight = re.sub(r'\b[ ]{2,}\b', '\t\t', x.text.strip())
-        print flight
-        print '<a href=\'{}\'>{}</a>'.format(link, flight)
-        # try:
-        #     print x.find('div', attrs={'class': '_Xnb _QJ'}).text.strip()
-        # except:
-        #     print x.find('div', attrs={'class': '_Xnb _QJ _Z9b'}).text.strip()
-    pass
+def direction_flight(query=None, li=None):
+    result = {}
+    flights = check_link(li, query)
+    flight_direction = []
+    for flight in flights:
+        link = flight.find('a')['href'] if flight.find('a') else flight['href']
+        flight = re.sub(r'\b[ ]{2,}\b', '\t\t', flight.text.strip())
+        flight_direction.append('<a href=\'{}\'>{}</a> \n'.format(link, flight))
+    result['flight_direction'] = flight_direction
+    return result
+
+
+def check_link(li=None, query=None, lang='en'):
+    if li:
+        return (
+            li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'})
+            + li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
+        )
+    else:
+        url = get_search_url(query, lang=lang)
+        html = get_direction_html(url)
+        li_result = (
+            BeautifulSoup(html, 'html.parser')
+            if html else BeautifulSoup('<html></html>', 'html.parser')
+        )
+
+        li = li_result.findAll('div', attrs={'class': '_s2'})
+
+        return (
+            [li_result.find('h3', attrs={'class': 'r'}).find('a')]
+            + li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'})
+            + li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
+        )

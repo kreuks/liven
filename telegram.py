@@ -28,15 +28,13 @@ class User(telepot.helper.ChatHandler):
         }
 
         self.bot_response, self.delay, self.image = process_message(session, data)
-        self.sender.sendMessage(self.bot_response)
-        if self.delay:
+        self.sender.sendMessage(self.bot_response, parse_mode='HTML')
+
+        while (self.delay):
             data['message'] = ''
             self.bot_response, self.delay, self.image = process_message(session, data)
-            self.sender.sendMessage(self.bot_response)
+            self.sender.sendMessage(self.bot_response, parse_mode='HTML')
             self.sender.sendPhoto(urlopen(self.image)) if self.image else None
-
-
-
 
     def on__idle(self, event):
         session.destroy_session(event['_idle']['source']['id'])
