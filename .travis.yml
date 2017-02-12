@@ -25,7 +25,11 @@ install:
 env:
   - CODE_CLIMATE_AT=$CODE_CLIMATE_TOKEN
   - CHECK_E=$CHECK_ENV
+  - CHECK_E2=$CHECK_ENV2
+  - CHECK_E3=$CHECK_ENV3
 script:
   - py.test --pep8
   - echo $CHECK_E
+  - echo $CHECK_E2
+  - echo $CHECK_E3
   - CODECLIMATE_REPO_TOKEN=CODE_CLIMATE_AT codeclimate-test-reporter
