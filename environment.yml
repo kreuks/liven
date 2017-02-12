@@ -9,8 +9,6 @@ dependencies:
   - boto3
   - pip:
       - wit==4.2.0
-      - git+http://github.com/mit-nlp/MITIE.git#egg=mitie
-      - spacy==1.2.0
       - pathlib
       - request
       - progressbar

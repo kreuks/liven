@@ -21,7 +21,6 @@ install:
 
   - conda env create -f environment.yml
   - source activate liven
-  - python -m spacy.en.download all > jnk
 env:
   - HEROKU_AT=$HEROKU_TOKEN
 script: py.test --pep8
