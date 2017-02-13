@@ -29,5 +29,3 @@ deploy:
   provider: heroku
   api_key: $HEROKU_AT
   app: liven-bot
-  run:
-    - "python -m telegram"
