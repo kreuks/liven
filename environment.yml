@@ -13,4 +13,5 @@ dependencies:
       - pathlib
       - request
       - progressbar
-      - pytest-pep8
+      - pytest-pep
+      - telepot
