@@ -31,4 +31,5 @@ deploy:
   app: liven-bot
   run:
     - restart
+    - "source activate liven"
     - "python -m telegram"
