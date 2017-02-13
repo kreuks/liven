@@ -1,7 +1,7 @@
 import random
 
 from bot.stories.base import Story
-from bot.constants import Context, Intent, RESPONSES
+from bot.constants import Context, Intent, RESPONSES, OOT
 from google_search import google
 from bot.util import get_result_story
 
@@ -35,10 +35,13 @@ class WebSearchWithKeyword(Story):
         result['context'] = {
                 k: v for k, v in context.items() if k != Context.SEARCH_KEYWORD and v != Intent.ASK
             }
+
         if lucky_result:
             result['response'] = lucky_result['complete']
             result['image'] = lucky_result['image']
         else:
-            pass
+            response = RESPONSES[OOT.INTERNAL_ERROR]
+            response = response[random.randint(0, len(response)-1)]
+            result['response'] = response
 
         return result

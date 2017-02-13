@@ -27,6 +27,10 @@ class Intent(object):
     SEARCH_FLIGHT = 'search_flight'
 
 
+class OOT(object):
+    INTERNAL_ERROR = 'internal_error'
+
+
 class Google(object):
     SCOOPES = 'https://www.googleapis.com/auth/calendar.readonly'
     APPLICATION_NAME = 'kreuks liven'
