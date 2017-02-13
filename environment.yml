@@ -1,5 +1,6 @@
 name: liven
 dependencies:
+  - nomkl
   - python=2.7.12
   - pip=8.1.2
   - numpy
