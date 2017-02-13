@@ -31,5 +31,4 @@ deploy:
   app: liven-bot
   run:
     - restart
-after_deploy:
-  - python -m telegram  
+    - "python -m telegram"
