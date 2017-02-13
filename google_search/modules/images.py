@@ -92,7 +92,9 @@ class ImageOptions:
         if self.image_type:
             # clipart
             tbs = self._add_to_tbs(tbs, "itp", self.image_type)
-        if self.size_category and not (self.larger_than or (self.exact_width and self.exact_height)):
+        if self.size_category and not (
+                    self.larger_than or (self.exact_width and self.exact_height)
+        ):
             # i = icon, l = large, m = medium, lt = larger than, ex = exact
             tbs = self._add_to_tbs(tbs, "isz", self.size_category)
         if self.larger_than:
@@ -248,7 +250,8 @@ def _parse_image_format(image_link):
     >>> link = "http://blogs.elpais.com/.a/6a00d8341bfb1653ef01a73dbb4a78970d-pi"
     >>> Google._parse_image_format(link)
 
-    >>> link = "http://minionslovebananas.com/images/gallery/preview/Chiquita-DM2-minion-banana-3.jpg%3Fw%3D300%26h%3D429"
+    >>> link = 'http://minionslovebananas.com/images/gallery/preview/' \
+    'Chiquita-DM2-minion-banana-3.jpg%3Fw%3D300%26h%3D429'
     >>> Google._parse_image_format(link)
 
     """
@@ -358,53 +361,6 @@ def _get_thumb_data(res, img):
     except:
         exc_type, exc_value, exc_traceback = sys.exc_info()
         print exc_type, exc_value, "index=", res.index
-
-
-# PUBLIC
-def search_old(query, image_options=None, pages=1):
-    results = []
-    for i in range(pages):
-        url = get_image_search_url(query, image_options, i)
-        html = get_html(url)
-        if html:
-            if Google.DEBUG_MODE:
-                write_html_to_file(
-                    html, "images_{0}_{1}.html".format(query.replace(" ", "_"), i))
-            j = 0
-            soup = BeautifulSoup(html)
-            match = re.search("dyn.setResults\((.+)\);</script>", html)
-            if match:
-                init = unicode(match.group(1), errors="ignore")
-                tokens = init.split('],[')
-                for token in tokens:
-                    res = ImageResult()
-                    res.page = i
-                    res.index = j
-                    toks = token.split(",")
-
-                    # should be 32 or 33, but seems to change, so just make sure no exceptions
-                    # will be thrown by the indexing
-                    if (len(toks) > 22):
-                        for t in range(len(toks)):
-                            toks[t] = toks[t].replace('\\x3cb\\x3e', '').replace(
-                                '\\x3c/b\\x3e', '').replace('\\x3d', '=').replace('\\x26', '&')
-                        match = re.search(
-                            "imgurl=(?P<link>[^&]+)&imgrefurl", toks[0])
-                        if match:
-                            res.link = match.group("link")
-                        res.name = toks[6].replace('"', '')
-                        res.thumb = toks[21].replace('"', '')
-                        res.format = toks[10].replace('"', '')
-                        res.domain = toks[11].replace('"', '')
-                        match = re.search(
-                            "(?P<width>[0-9]+) &times; (?P<height>[0-9]+) - (?P<size>[^ ]+)", toks[9].replace('"', ''))
-                        if match:
-                            res.width = match.group("width")
-                            res.height = match.group("height")
-                            res.filesize = match.group("size")
-                        results.append(res)
-                        j = j + 1
-    return results
 
 
 def search(query, image_options=None, num_images=50):

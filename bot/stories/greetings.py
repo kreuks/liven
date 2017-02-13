@@ -14,6 +14,8 @@ class Greetings(Story):
     def run(self, context):
         result = get_result_story()
         response = RESPONSES[Intent.GREETING]
-        context.pop(Intent.GREETING, None)
         result['response'] = response[random.randint(0, len(response)-1)]
+        result['context'] = {
+            k: v for k, v in context.items() if v != Intent.GREETING
+        }
         return result

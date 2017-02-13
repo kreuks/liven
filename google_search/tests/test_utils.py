@@ -9,14 +9,14 @@ from __future__ import with_statement
 import unittest
 import nose
 
-from google.modules.utils import _get_search_url
+from google_search.modules.utils import get_search_url
 
 
 class UtilsTestCase(unittest.TestCase):
     """Tests for helper methods."""
 
     def test_get_search_url(self):
-        url = _get_search_url("apple", 0, 10, "en")
+        url = get_search_url("apple", 0, 10, "en")
         exp_url = "http://www.google.com/search?q=apple&start=0&num=10&nl=en"
         self.assertEqual(url, exp_url)
 

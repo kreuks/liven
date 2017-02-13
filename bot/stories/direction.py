@@ -25,8 +25,8 @@ class DirectionDelay(Story):
 class Direction(Story):
     def compliance(self, context):
         return (
-            Context.DESTINATION in context and Context.ORIGIN in context
-            and Intent.SEARCH_FLIGHT not in context.values()
+            Context.DESTINATION in context and Context.ORIGIN in context and
+            Intent.SEARCH_FLIGHT not in context.values()
         )
 
     def run(self, context):
@@ -67,8 +67,8 @@ class DirectionFlight(Story):
         result['response'] = ''.join(google_flight_result['flight_direction'])
 
         result['context'] = {
-            k: v for k, v in context.items() if v != Intent.SEARCH_FLIGHT
-            and k != Context.ORIGIN and k != Context.DESTINATION
+            k: v for k, v in context.items() if v != Intent.SEARCH_FLIGHT and
+            k != Context.ORIGIN and k != Context.DESTINATION
         }
 
         return result

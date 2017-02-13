@@ -54,6 +54,7 @@ def get_direction_html(url):
     except requests.HTTPError:
         return None
 
+
 def get_html(url):
     header = "Mozilla/5.001 (windows; U; NT4.0; en-US; rv:1.0) Gecko/25250101"
     try:

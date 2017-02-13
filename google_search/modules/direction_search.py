@@ -47,8 +47,8 @@ def direction_flight(query=None, li=None):
 def check_link(li=None, query=None, lang='en'):
     if li:
         return (
-            li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'})
-            + li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
+            li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'}) +
+            li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
         )
     else:
         url = get_search_url(query, lang=lang)
@@ -61,7 +61,7 @@ def check_link(li=None, query=None, lang='en'):
         li = li_result.findAll('div', attrs={'class': '_s2'})
 
         return (
-            [li_result.find('h3', attrs={'class': 'r'}).find('a')]
-            + li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'})
-            + li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
+            [li_result.find('h3', attrs={'class': 'r'}).find('a')] +
+            li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'}) +
+            li[0].findAll('div', attrs={'class': '_Xnb _QJ'})
         )

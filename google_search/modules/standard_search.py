@@ -96,7 +96,7 @@ def search(query, pages=1, lang='en', void=True):
 
     return results, complete_description
 
-# PRIVATE
+
 def _complete_name(li):
     try:
         result = li[0].find("div", attrs={"class": "_B5d"})
@@ -105,12 +105,15 @@ def _complete_name(li):
     except KeyError:
         return None
 
+
 def _complete_tag(li):
     try:
         result = li[0].find("div", attrs={"class": "_zdb _Pxg"})
-        if result: return result.text.strip()
+        if result:
+            return result.text.strip()
     except KeyError:
         return None
+
 
 def _complete_desc(li):
     try:
@@ -118,11 +121,13 @@ def _complete_desc(li):
     except KeyError:
         return None
 
+
 def _complete_born(li):
     try:
         return li[3].text.strip().replace("Born: ", "").encode('ASCII', 'replace')
     except KeyError:
         return None
+
 
 def _complete_image(li):
     try:
@@ -131,6 +136,7 @@ def _complete_image(li):
     except (TypeError, IndexError):
         return None
 
+
 def _complete_description(li):
     name = _complete_name(li)
     review_result = li[2].find('div', attrs={'class': '_POh'})
@@ -138,18 +144,21 @@ def _complete_description(li):
         result = name + '\n'
         for row in li[3:-1]:
             row = row.text.strip().replace('Wikipedia', '')
-            if row == 'PetunjukSitus Web': continue
+            if row == 'PetunjukSitus Web':
+                continue
             result = result + '\n' + row
-        return  result
+        return result
     elif name and not review_result:
         result = name + '\n'
         for row in li[1:]:
             row = row.text.strip().replace('Wikipedia', '')
-            if row == 'PetunjukSitus Web': continue
+            if row == 'PetunjukSitus Web':
+                continue
             result = result + '\n' + row
         return result
     else:
         return None
+
 
 def _get_name(li):
     """Return the name of a google search."""
@@ -158,6 +167,7 @@ def _get_name(li):
     if a is not None:
         return a.text.strip()
     return None
+
 
 def _get_link(li):
     """Return external link from a search."""

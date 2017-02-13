@@ -26,6 +26,7 @@ class Intent(object):
     SEARCH_DIRECTION = 'direction'
     SEARCH_FLIGHT = 'search_flight'
 
+
 class Google(object):
     SCOOPES = 'https://www.googleapis.com/auth/calendar.readonly'
     APPLICATION_NAME = 'kreuks liven'
