@@ -1,7 +1,7 @@
 import random
 
 from bot.stories.base import Story
-from bot.constants import Context, Intent, RESPONSES
+from bot.constants import Context, Intent, RESPONSES, OOT
 from google_search import google
 from bot.util import get_result_story
 
@@ -35,10 +35,14 @@ class Direction(Story):
         destination = context[Context.DESTINATION]
         query = origin + ' to ' + destination
         google_result = google.direction(query)
+
+        response = RESPONSES[OOT.INTERNAL_ERROR]
+        response = response[random.randint(0, len(response) - 1)]
+
         result['response'] = (
             google_result['origin'] + '\n' + google_result['destination'] + '\n\n' +
             '\n'.join(google_result['directions']) + '\n\n' + google_result['link']
-        )
+        ) if google_result else response
 
         if google_result['flight_available']:
             context['intent'] = Intent.SEARCH_FLIGHT
@@ -64,7 +68,12 @@ class DirectionFlight(Story):
         query = origin + ' to ' + destination
         google_flight_result = google.flight_direction(query)
 
-        result['response'] = ''.join(google_flight_result['flight_direction'])
+        response = RESPONSES[OOT.INTERNAL_ERROR]
+        response = response[random.randint(0, len(response) - 1)]
+
+        result['response'] = ''.join(
+            google_flight_result['flight_direction']
+        ) if google_flight_result else response
 
         result['context'] = {
             k: v for k, v in context.items() if v != Intent.SEARCH_FLIGHT and

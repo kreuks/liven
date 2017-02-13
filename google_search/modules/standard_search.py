@@ -6,7 +6,6 @@ import urlparse
 from urllib2 import unquote
 from unidecode import unidecode
 from re import match
-from copy import deepcopy
 
 
 class GoogleResult:
@@ -64,8 +63,8 @@ def search(query, pages=1, lang='en', void=True):
 
         if html:
             soup = BeautifulSoup(html, "html.parser")
-            divs = deepcopy(soup.findAll("div", attrs={"class": "g"}))
-            complete_desc = deepcopy(soup.findAll("div", attrs={"class": "_o0d"}))
+            divs = soup.findAll("div", attrs={"class": "g"})
+            complete_desc = soup.findAll("div", attrs={"class": "_o0d"})
 
             if complete_desc:
                 complete_description['name'] = _complete_name(complete_desc)
@@ -194,7 +193,7 @@ def _get_google_link(li):
         return None
 
     if link.startswith("/url?") or link.startswith("/search?"):
-        return urlparse.urljoin("http://www.google.com", link)
+        return urlparse.urljoin("https://www.google.com", link)
 
     else:
         return None
@@ -226,5 +225,5 @@ def _get_cached(li):
     if len(links) > 1 and links[1].text == "Cached":
         link = links[1]["href"]
         if link.startswith("/url?") or link.startswith("/search?"):
-            return urlparse.urljoin("http://www.google.co.id", link)
+            return urlparse.urljoin("https://www.google.co.id", link)
     return None
