@@ -1,5 +1,6 @@
 name: liven
 dependencies:
+  - nomkl
   - python=2.7.12
   - pip=8.1.2
   - numpy
@@ -9,9 +10,12 @@ dependencies:
   - boto3
   - pip:
       - wit==4.2.0
-      - git+http://github.com/mit-nlp/MITIE.git#egg=mitie
-      - spacy==1.2.0
       - pathlib
       - request
       - progressbar
       - pytest-pep8
+      - telepot
+      - httplib2==0.9.2
+      - google-api-python-client
+      - oauth2client
+      - spotipy
