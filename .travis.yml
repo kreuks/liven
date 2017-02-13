@@ -30,6 +30,4 @@ deploy:
   api_key: $HEROKU_AT
   app: liven-bot
   run:
-    - "source activate liven"
-    - "conda list"
     - "python -m telegram"
