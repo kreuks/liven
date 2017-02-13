@@ -1,10 +1,9 @@
 import os
-import random
 import logging
 
 from wit import Wit
 from config import config
-from util import get_summarized_entities
+from util import get_summarized_entities, get_message_text
 from story import Stories
 from sessions import Session
 
@@ -33,20 +32,26 @@ def get_story_response(sessions, chat_id):
     response = Stories.execute_stories(sessions.get_context(chat_id))
     sessions.update_context(chat_id, response['context'])
     logging.info(
-        'response: {}\n'.format(response['response'])
+        'response: ' + (response['response']) + '\n'
     )
-    return response['response']
+
+    return response['response'], response['delay'], response['image']
 
 
 def get_wit_response(message):
-    response = client.message(message)
-    logging.info(
-        'wit_response: {}\n'.format(response)
-    )
-    summarized_entities = get_summarized_entities(response, config['min_confidence_level'])
-    logging.info(
-        'summarized_wit_entities: {}\n'.format(summarized_entities)
-    )
+    if message != '':
+        response = client.message(message)
+        logging.info(
+            'wit_response: {}\n'.format(response)
+        )
+        summarized_entities = get_summarized_entities(response, config['min_confidence_level'])
+        summarized_entities = (get_message_text(response)
+                               if not summarized_entities else summarized_entities)
+        logging.info(
+            'summarized_wit_entities: {}\n'.format(summarized_entities)
+        )
+    else:
+        summarized_entities = {}
     return summarized_entities
 
 
