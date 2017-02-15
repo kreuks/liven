@@ -1,7 +1,7 @@
 import os
 import re
 
-from flask import Flask, request, abort
+from flask import Flask, request, abort, render_template
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import (
@@ -18,6 +18,21 @@ session = Session()
 
 line_bot_api = LineBotApi(os.environ.get('LINE_ACCESS_TOKEN', None))
 handler = WebhookHandler(os.environ.get('LINE_SECRET', None))
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('404.html'), 500
+
+
+@app.route("/", methods=['GET'])
+def hello():
+    return render_template('hello.html'), 200
 
 
 @app.route("/callback", methods=['POST'])
@@ -70,6 +85,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run(
-        host=os.environ.get('HOST', None),
-        port=int(os.environ.get('PORT', None))
     )
