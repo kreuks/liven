@@ -25,8 +25,6 @@ def direction(query, lang='en'):
     li = soup.findAll('div', attrs={'class': '_s2'})
     result['flight_available'] = True if li else False
 
-    result['flight_direction'] = direction_flight(li=li) if result['flight_available'] else None
-
     result['link'] = 'https://www.google.com' + link[0].find('a')['href'] if link else ''
 
     return result
@@ -34,17 +32,21 @@ def direction(query, lang='en'):
 
 def direction_flight(query=None, li=None):
     result = {}
-    flights = check_link(li, query)
+    flights = check_flight_link(li, query)
     flight_direction = []
     for flight in flights:
-        link = flight.find('a')['href'] if flight.find('a') else flight['href']
-        flight = re.sub(r'\b[ ]{2,}\b', '\t\t', flight.text.strip())
-        flight_direction.append('<a href=\'{}\'>{}</a> \n'.format(link, flight))
+        link = flight['href'] if flight.get('href', None) else None
+        flight = re.sub(r'\b[ ]{2,}\b', '\t', flight.text.strip())
+        flight_direction.append(
+            '<a href=\'{}\'>{}</a> \n'.format(link, flight)
+        ) if link else flight_direction.append(
+            '{} \n'.format(flight)
+        )
     result['flight_direction'] = flight_direction
     return result
 
 
-def check_link(li=None, query=None, lang='en'):
+def check_flight_link(li=None, query=None, lang='en'):
     if li:
         return (
             li[0].findAll('div', attrs={'class': '_Xnb _QJ _Z9b'}) +
