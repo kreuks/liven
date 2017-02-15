@@ -30,3 +30,4 @@ dependencies:
       - Jinja2==2.8
       - MarkupSafe==0.23
       - Werkzeug==0.11.3
+      - line-bot-sdk
