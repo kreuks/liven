@@ -40,18 +40,18 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    chat_id = event.source.user_id or event.source.group_id or event.source.room_id
-    user_message = event.message.text
+    # chat_id = event.source.user_id or event.source.group_id or event.source.room_id
+    # user_message = event.message.text
+    #
+    # data = {
+    #     'chat_id': chat_id,
+    #     'message': user_message
+    # }
 
-    data = {
-        'chat_id': chat_id,
-        'message': user_message
-    }
-
-    bot_response, delay, image = process_message(session, data)
+    # bot_response, delay, image = process_message(session, data)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=bot_response))
+        TextSendMessage(text=event.message.text))
 
     # while (delay):
     #     data['message'] = ''
