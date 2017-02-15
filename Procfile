@@ -1,1 +1,3 @@
-run: python -m telegram
+run:
+  - python -m telegram
+  - python -m line
