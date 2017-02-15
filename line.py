@@ -14,11 +14,6 @@ line_bot_api = LineBotApi(os.environ.get('LINE_ACCESS_TOKEN', None))
 handler = WebhookHandler(os.environ.get('LINE_SECRET', None))
 
 
-@app.route("/", methods=['GET'])
-def hello():
-    return 'Hello stranger\n'
-
-
 @app.route("/callback", methods=['POST'])
 def callback():
     # get X-Line-Signature header value
