@@ -53,19 +53,19 @@ def handle_message(event):
         event.reply_token,
         TextSendMessage(text=bot_response))
 
-    while (delay):
-        data['message'] = ''
-        bot_response, delay, image = process_message(session, data)
-        bot_response = re.sub(r'\<.*?\>', '', bot_response)
-        line_bot_api.push_message(chat_id, TextSendMessage(text=bot_response))
-        line_bot_api.push_message(
-            chat_id,
-            ImageSendMessage(original_content_url=image, preview_image_url=image)
-        ) if image else None
-        line_bot_api.push_message(
-            chat_id,
-            TextSendMessage(text=RESPONSES[Context.EXPIRED])
-        ) if not delay else None
+    # while (delay):
+    #     data['message'] = ''
+    #     bot_response, delay, image = process_message(session, data)
+    #     bot_response = re.sub(r'\<.*?\>', '', bot_response)
+    #     line_bot_api.push_message(chat_id, TextSendMessage(text=bot_response))
+    #     line_bot_api.push_message(
+    #         chat_id,
+    #         ImageSendMessage(original_content_url=image, preview_image_url=image)
+    #     ) if image else None
+    #     line_bot_api.push_message(
+    #         chat_id,
+    #         TextSendMessage(text=RESPONSES[Context.EXPIRED])
+    #     ) if not delay else None
 
 
 if __name__ == "__main__":
