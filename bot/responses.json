@@ -18,6 +18,16 @@
       "Banyak maunya lo, yang gw tau kalo dari {} cuma ini sih \n{}"
     ]
   },
+  "search_web": [
+    "Hmm, {} ya? \nTak mikir dulu coy\n",
+    "Oh {} ya \nGw cari2 dulu deh\n",
+    "Hmmmm sulit nih\nKalo {} cuma tau ini sih\n"
+  ],
+  "search_direction": [
+    "Hmm, mau ke {},\nNtar gw cariin jalan paling cepet",
+    "Kalo ke {} ya,\nHmm, bentar gw cariin",
+    "Sabar bro gw cariin dulu kalo mau ke {}"
+  ],
   "activity":{
     "hasEventRemember": [
       "Kamu punya agenda bro, {}",
@@ -31,6 +41,12 @@
       "Lu ga punya acara, tapi mendingan {}"
     ]
   },
+  "internal_error": [
+    "Aduh gw lagi pusing coy",
+    "Lu cari sendiri dulu deh",
+    "Ane lagi capek nih",
+    "Pusing..."
+  ],
   "unidentified": [
     "Lu ngomong apaan sih?",
     "Sorry ga paham gw",

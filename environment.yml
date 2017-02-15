@@ -8,6 +8,7 @@ dependencies:
   - scikit-learn=0.18.1
   - cloudpickle
   - boto3
+  - flask
   - pip:
       - wit==4.2.0
       - pathlib
@@ -19,3 +20,8 @@ dependencies:
       - google-api-python-client
       - oauth2client
       - spotipy
+      - beautifulsoup4
+      - selenium>=2.44.0,<3.0.0
+      - requests
+      - unidecode
+      - vcrpy
