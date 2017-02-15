@@ -51,7 +51,7 @@ def handle_message(event):
     bot_response, delay, image = process_message(session, data)
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text=bot_response))
 
     while (delay):
         data['message'] = ''
