@@ -10,7 +10,7 @@ from linebot.models import (
 
 from bot.main import process_message
 from bot.sessions import Session
-from bot.constants import Context
+from bot.constants import RESPONSES, Context
 
 
 app = Flask(__name__)
@@ -40,33 +40,36 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # chat_id = event.source.user_id or event.source.group_id or event.source.room_id
-    # user_message = event.message.text
-    #
-    # data = {
-    #     'chat_id': chat_id,
-    #     'message': user_message
-    # }
+    chat_id = event.source.user_id or event.source.group_id or event.source.room_id
+    user_message = event.message.text
 
-    # bot_response, delay, image = process_message(session, data)
+    data = {
+        'chat_id': chat_id,
+        'message': user_message
+    }
+
+    bot_response, delay, image = process_message(session, data)
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=event.message.text))
 
-    # while (delay):
-    #     data['message'] = ''
-    #     bot_response, delay, image = process_message(session, data)
-    #     bot_response = re.sub(r'\<.*?\>', '', bot_response)
-    #     line_bot_api.push_message(chat_id, TextSendMessage(text=bot_response))
-    #     line_bot_api.push_message(
-    #         chat_id,
-    #         ImageSendMessage(original_content_url=image, preview_image_url=image)
-    #     ) if image else None
-    #     line_bot_api.push_message(
-    #         chat_id,
-    #         TextSendMessage(text=RESPONSES[Context.EXPIRED])
-    #     ) if not delay else None
+    while (delay):
+        data['message'] = ''
+        bot_response, delay, image = process_message(session, data)
+        bot_response = re.sub(r'\<.*?\>', '', bot_response)
+        line_bot_api.push_message(chat_id, TextSendMessage(text=bot_response))
+        line_bot_api.push_message(
+            chat_id,
+            ImageSendMessage(original_content_url=image, preview_image_url=image)
+        ) if image else None
+        line_bot_api.push_message(
+            chat_id,
+            TextSendMessage(text=RESPONSES[Context.EXPIRED])
+        ) if not delay else None
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(
+        host=os.environ.get('HOST', None),
+        port=int(os.environ.get('PORT', None))
+    )

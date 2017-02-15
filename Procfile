@@ -1,2 +1,2 @@
-web: gunicorn line:app
+web: python -m line
 run: python -m telegram
