@@ -11,7 +11,7 @@ class Greetings(Story):
             Intent.GREETING in context.values()
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         response = RESPONSES[Intent.GREETING]
         result['response'] = response[random.randint(0, len(response)-1)]

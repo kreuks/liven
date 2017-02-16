@@ -17,6 +17,6 @@ class Stories(object):
     def execute_stories(cls, context):
         for story in cls._stories:
             if story.compliance(context):
-                return story.run(context)
+                return story.run_story(context)
 
         return None
