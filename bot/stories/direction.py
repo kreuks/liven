@@ -12,7 +12,7 @@ class DirectionDelay(Story):
             Intent.SEARCH_DIRECTION in context.values() and Context.DESTINATION in context
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         response = RESPONSES[Context.SEARCH_DIRECTION]
         response = response[random.randint(0, len(response)-1)]
@@ -29,7 +29,7 @@ class Direction(Story):
             Intent.SEARCH_FLIGHT not in context.values()
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         origin = context[Context.ORIGIN]
         destination = context[Context.DESTINATION]
@@ -61,7 +61,7 @@ class DirectionFlight(Story):
             Intent.SEARCH_FLIGHT in context.values()
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         origin = context[Context.ORIGIN]
         destination = context[Context.DESTINATION]

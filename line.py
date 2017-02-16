@@ -1,4 +1,5 @@
 import os
+import random
 import re
 
 from flask import Flask, request, abort, render_template
@@ -77,9 +78,12 @@ def handle_message(event):
             chat_id,
             ImageSendMessage(original_content_url=image, preview_image_url=image)
         ) if image else None
+
+        response = RESPONSES[Context.EXPIRED]
+
         line_bot_api.push_message(
             chat_id,
-            TextSendMessage(text=RESPONSES[Context.EXPIRED])
+            TextSendMessage(text=response[random.randint(0, len(response) - 1)])
         ) if not delay else None
 
 

@@ -41,7 +41,7 @@ class SongWithKeywords(Story):
         else:
             return {}
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         response = RESPONSES[Context.SPOTIFY]
         exact_content = self.get_exact_context(context)
