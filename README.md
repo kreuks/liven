@@ -14,4 +14,7 @@ in Google Calendar.
 - WIT_ACCESS_TOKEN
 - TELEGRAM_ACCESS_TOKEN
 
+### TODO
+- Either find other wsgi for gunicorn replacement on heroku or fix gunicorn depecreated
+
 If you interested to build this bot in bahasa, don't hesitate to contact me.
