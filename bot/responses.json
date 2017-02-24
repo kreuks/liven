@@ -28,6 +28,13 @@
     "Kalo ke {} ya,\nHmm, bentar gw cariin",
     "Sabar bro gw cariin dulu kalo mau ke {}"
   ],
+  "stock_name": [
+    "Harga nya {0} sih {1} bro untuk tanggal {3}, change {2}",
+    "Lu maunya harga berapa?, harga {0} sih {1} untuk tanggal {3}, change {2}",
+    "Tanggal {3}, {0} harganya {1} dg change {2}, Cuan ga coy?",
+    "Tanggal {3}, {0}:{1} change {2}, Take it or leave it bray!",
+    "Moga cuan, tanggal {3} {0}:{1} doang harganya... change {2}"
+  ],
   "activity":{
     "hasEventRemember": [
       "Kamu punya agenda bro, {}",

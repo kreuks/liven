@@ -9,6 +9,7 @@ from bot.util import get_result_story
 class DirectionDelay(Story):
     def compliance(self, context):
         return (
+            # Match the Intent from WIT AI with th predefied context in constants
             Intent.SEARCH_DIRECTION in context.values() and Context.DESTINATION in context
         )
 

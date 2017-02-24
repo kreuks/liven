@@ -17,6 +17,7 @@ class Context(object):
     SEARCH_DIRECTION = 'search_direction'
     ORIGIN = 'origin'
     DESTINATION = 'destination'
+    STOCK_NAME = 'stock_name'
 
 
 class Intent(object):
@@ -25,6 +26,7 @@ class Intent(object):
     ASK = 'ask'
     SEARCH_DIRECTION = 'direction'
     SEARCH_FLIGHT = 'search_flight'
+    STOCK_FIND = 'stock_price'
 
 
 class OOT(object):
