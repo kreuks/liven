@@ -12,7 +12,7 @@ class WebSearchDelay(Story):
             (Intent.ASK in context.values()) and (Context.SEARCH_KEYWORD in context)
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         response = RESPONSES[Context.SEARCH_WEB]
         response = response[random.randint(0, len(response)-1)]
@@ -28,7 +28,7 @@ class WebSearchWithKeyword(Story):
             (Context.SEARCH_KEYWORD in context)
         )
 
-    def run(self, context):
+    def run_story(self, context):
         result = get_result_story()
         keyword = context[Context.SEARCH_KEYWORD]
         search_result, lucky_result = google.search(keyword)

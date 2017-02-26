@@ -43,7 +43,7 @@ class StockPrice(Story):
             'time' : obj[0]['lt']                 #3
         }
 
-    def run(self, context):
+    def run_story(self, context):
         logging.info(
             'method Run Stock Price'
         )

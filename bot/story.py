@@ -27,6 +27,6 @@ class Stories(object):
                 logging.info(
                     'Come into compliance'
                 )
-                return story.run(context)
+                return story.run_story(context)
 
         return None
