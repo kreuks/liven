@@ -1,4 +1,5 @@
 import json
+import logging
 
 
 RESPONSES = json.load(open('bot/responses.json', 'r'))
@@ -34,3 +35,5 @@ class OOT(object):
 class Google(object):
     SCOOPES = 'https://www.googleapis.com/auth/calendar.readonly'
     APPLICATION_NAME = 'kreuks liven'
+
+LOGGING = logging.getLogger(name='Liven')
