@@ -2,17 +2,15 @@ import random, urllib2, json
 import logging
 
 from bot.stories.base import Story
-from bot.constants import Context, Intent, RESPONSES, OOT
+from bot.constants import Context, Intent, RESPONSES, OOT,LOGGING
 from bot.util import get_result_story
-
-logging.basicConfig(level=logging.INFO)
 
 class StockPrice(Story):
     def __init__(self):
         self.prefix = 'http://finance.google.com/finance/info?client=ig&q='
 
     def compliance(self, context):
-        logging.info(
+        LOGGING.info(
             'compliance Stock price method'
         )
         return (
@@ -22,7 +20,7 @@ class StockPrice(Story):
     def find_stock_price(self,context):
         stock_name = context[Context.STOCK_NAME]
         url = self.prefix + '%s:%s'%(stock_name[0:4], 'IDX')
-        logging.info(
+        LOGGING.info(
             'link : \n{}'.format(url)
         )
         try:
@@ -33,7 +31,7 @@ class StockPrice(Story):
             )
             return {}
         obj = json.loads(content[3:])
-        logging.info(
+        LOGGING.info(
             'stock_code : {} \nstock_pricing : {} \ndifference : {} \ntime : {}'.format(obj[0]['t'], obj[0]['l_fix'], obj[0]['cp'], obj[0]['lt'])
         )
         return {
@@ -44,7 +42,7 @@ class StockPrice(Story):
         }
 
     def run_story(self, context):
-        logging.info(
+        LOGGING.info(
             'method Run Stock Price'
         )
         result = get_result_story()
