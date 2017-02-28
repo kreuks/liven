@@ -15,6 +15,7 @@ in Google Calendar.
 - TELEGRAM_ACCESS_TOKEN
 
 ### TODO
-- Either find other wsgi for gunicorn replacement on heroku or fix gunicorn deprecated
+- Learn WIT and improve the ability
+- Enchance Bot History
 
 If you interested to build this bot in bahasa, don't hesitate to contact me.
