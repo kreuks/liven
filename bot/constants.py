@@ -1,8 +1,12 @@
 import json
 import logging
 
+from config import name
+
 
 RESPONSES = json.load(open('bot/responses.json', 'r'))
+logging.basicConfig(level=logging.INFO)
+LOGGER = logging.getLogger(name=name)
 
 
 class Context(object):
@@ -34,6 +38,4 @@ class OOT(object):
 
 class Google(object):
     SCOOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-    APPLICATION_NAME = 'kreuks liven'
-
-LOGGING = logging.getLogger(name='Liven')
+    APPLICATION_NAME = 'liven'
