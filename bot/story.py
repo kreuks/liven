@@ -4,6 +4,7 @@ from bot.stories import base, greetings, play_song, web_search, direction, stock
 
 logging.basicConfig(level=logging.INFO)
 
+
 class Stories(object):
     _stories = [
         greetings.Greetings(),
