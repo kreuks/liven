@@ -90,6 +90,7 @@ def get_message_text(response):
 def get_result_story(delay=False, typo=False):
     return {
         'context': {},
+        'previous_context': {},
         'response': '',
         'delay': delay,
         'typo': typo,

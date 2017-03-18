@@ -18,4 +18,5 @@ class Greetings(Story):
         result['context'] = {
             k: v for k, v in context.items() if v != Intent.GREETING
         }
+        result['previous_context'] = context
         return result

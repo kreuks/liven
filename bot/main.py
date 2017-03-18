@@ -29,7 +29,7 @@ def process_message(sessions, data):
 
 def get_story_response(sessions, chat_id):
     response = Stories.execute_stories(sessions.get_context(chat_id))
-    sessions.update_context(chat_id, response['context'])
+    sessions.update_context(chat_id, response['previous_context'])
     LOGGER.info(
         'response: ' + (response['response']) + '\n'
     )
