@@ -25,6 +25,7 @@ class Context(object):
     WEATHER_KEY = 'weatherKey'
     PAST_TIME_ADJ = 'past_time_adj'
     FUT_TIME_ADJ = 'fut_time_adj'
+    TODAY_TIME_ADJ = 'today'
     LOCATION = 'location'
 
 
@@ -49,3 +50,4 @@ class Weather(object):
     ADJ_TIME_FRASE = {'pagi':7, 'siang':12, 'sore':15, 'malam':18, 'malem':18}
     WEATHER_FORECAST = 'weather_forecast'
     WEATHER_TODAY = 'weather_today'
+    RESP_VARIATION = ['main_only', 'main_hum', 'main_desc']

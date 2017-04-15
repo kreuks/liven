@@ -57,6 +57,8 @@ class WeatherForecast(Story):
             temp_time = now + datetime.timedelta(days=1)
         elif ('kemarin' in frase_time) or ('kemaren' in frase_time):
             temp_time = now + datetime.timedelta(days=-1)
+        else:
+            temp_time = now
         adj_time_componen = [k for k,v in Weather.ADJ_TIME_FRASE.items() if k in frase_time]
         if len(adj_time_componen) != 0:
             requested_time = datetime.datetime(temp_time.year, temp_time.month, temp_time.day,
@@ -97,6 +99,7 @@ class WeatherForecast(Story):
             key_time = self.time_frase_conversion(context[Context.FUT_TIME_ADJ])
             type_weather_request = 'forecast'
         else:
+            key_time = self.time_frase_conversion(Context.TODAY_TIME_ADJ)
             type_weather_request = 'weather'
 
         # Get JSON Rock !!!!
@@ -108,12 +111,13 @@ class WeatherForecast(Story):
         # Parse the data
         main_weather, summary_weather, humidity_value = self.parse_json(data_json, type_weather_request, key_time)
         # Return Response
-        if type_weather_request == 'forecast':
+        if type_weather_request == 'forecast':                          # Enter 1'st layer response (time type)
             response = RESPONSES[Weather.WEATHER_FORECAST]
         else :
             response = RESPONSES[Weather.WEATHER_TODAY]
         choose_resp_type = random.randint(0, len(response) - 1)
-        response = response[choose_resp_type][random.randint(0, len(response[choose_resp_type]) - 1)]
+        response = response[Weather.RESP_VARIATION[choose_resp_type]]   # Enter 2'nd layer response (param amount)
+        response = response[random.randint(0, len(response) - 1)]       # Enter 3'rd layer response (resp Variety)
         if choose_resp_type == 0:
             result['response'] = response.format(main_weather)
         elif choose_resp_type == 1:
@@ -122,6 +126,7 @@ class WeatherForecast(Story):
             result['response'] = response.format(main_weather, summary_weather)
         #response = response[random.randint(0, len(response) - 1)]
         result['context'] = {
-                k: v for k, v in context.items() if k != Context.WEATHER_KEY and v != Intent.WEATHER_FORECAST
+                k: v for k, v in context.items() if k != Context.WEATHER_KEY and v != Intent.WEATHER_FORECAST and
+                                                    k != Context.FUT_TIME_ADJ
         }
         return result

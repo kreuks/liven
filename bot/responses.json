@@ -58,40 +58,34 @@
     "Thanks bro",
     "Ada lagi ga bro?"
   ],
-  "weather_today": [
-    [
-      // MAIN only
+  "weather_today": {
+    "main_only": [
       "Hari ini {0} sob",
       "Dugaan ane {0} bray",
       "Mpos {0}!!"
     ],
-    [
-      // for MAIN and HUM
+    "main_hum": [
       "Prediksi gw cuaca hari ini bakal {0} dengan tingkat kelembapan {1}",
       "Kelembapannya {0}, cuacanya {1}"
     ],
-    [
-      // for MAIN and DESC
+    "main_desc": [
       "{1} kliatanya, intinya {0}",
       "Abakadabraaaa.... {1}, {0} om"
     ]
-  ],
-  "weather_forecast": [
-    [
-      // MAIN only
+  },
+  "weather_forecast": {
+    "main_only": [
       "{0} cuy!",
       "Prediksi gue {0}",
       "Kalo hasil terawangan, {0}"
     ],
-    [
-      // for MAIN and HUM
+    "main_hum" : [
       "Cuaca besok bakal {0} dengan tingkat kelembapan {1}",
       "Kliatanya sih besok {0} dengan tingkat kelembapan {1}"
     ],
-    [
-      // for MAIN and DESC
+    "main_desc" : [
       "Cuacanya sih {0}, {1}",
       "Hasil terawang gw menunjukkan kalo besok {0}, {1}"
     ]
-  ]
+  }
 }
