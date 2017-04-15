@@ -50,7 +50,8 @@ class WeatherForecast(Story):
         else:
             return data_json.status_code, 'ERROR'
 
-    def time_frase_conversion(self, frase_time):
+    @staticmethod
+    def time_frase_conversion(frase_time):
         LOGGER.info(
             '[WEATHER] time_frase_conversion : {}'.format(frase_time)
         )
@@ -70,23 +71,6 @@ class WeatherForecast(Story):
                                                12, 0, 0, 0)
         return (
             requested_time.strftime("%Y-%m-%d %H:%M:%S")
-        )
-
-    def parse_json(self, data_json, request_type, time_value=None):
-        LOGGER.info(
-            '[WEATHER] Parse Json'
-        )
-        if request_type == 'weather':
-            main_weather = data_json[request_type][0]['main']
-            summary_weather = data_json[request_type][0]['description']
-            humidity_value = data_json['main']['humidity']
-        elif request_type == 'forecast':
-            data_in_time = [i for i in data_json['list'] if i['dt_txt'] == time_value]
-            main_weather = data_in_time[0]['weather'][0]['main']
-            summary_weather = data_in_time[0]['weather'][0]['description']
-            humidity_value = data_in_time[0]['main']['humidity']
-        return (
-            main_weather, summary_weather, humidity_value
         )
 
     def run_story(self, context):
@@ -116,7 +100,7 @@ class WeatherForecast(Story):
             result['response'] = 'Lagi ada masalah cuy: {}, coba lagi ya...'.format(respond_code)
             return result
         # Parse the data
-        main_weather, summary_weather, humidity_value = self.parse_json(data_json, type_weather_request, key_time)
+        main_weather, summary_weather, humidity_value = parse_json(data_json, type_weather_request, key_time)
         # Return Response
         if type_weather_request == 'forecast':                          # Enter 1'st layer response (time type)
             response = RESPONSES[Weather.WEATHER_FORECAST]
@@ -133,7 +117,27 @@ class WeatherForecast(Story):
             result['response'] = response.format(main_weather, summary_weather)
         # Remove unused context
         result['context'] = {
-            k: v for k, v in context.items() if k != Context.WEATHER_KEY
-                                                and v != Intent.WEATHER_FORECAST and k != Context.FUT_TIME_ADJ
+            k: v for k, v in context.items() if (
+                k != Context.WEATHER_KEY and v != Intent.WEATHER_FORECAST and k != Context.FUT_TIME_ADJ
+            )
         }
         return result
+
+
+def parse_json(data_json, request_type, time_value=None):
+    LOGGER.info(
+        '[WEATHER] Parse Json'
+    )
+    weather_var = {}
+    if request_type == 'weather':
+        weather_var['main_weather'] = data_json[request_type][0]['main']
+        weather_var['summary_weather'] = data_json[request_type][0]['description']
+        weather_var['humidity_value'] = data_json['main']['humidity']
+    elif request_type == 'forecast':
+        data_in_time = [i for i in data_json['list'] if i['dt_txt'] == time_value]
+        weather_var['main_weather'] = data_in_time[0]['weather'][0]['main']
+        weather_var['summary_weather'] = data_in_time[0]['weather'][0]['description']
+        weather_var['humidity_value'] = data_in_time[0]['main']['humidity']
+    return (
+        weather_var['main_weather'], weather_var['summary_weather'], weather_var['humidity_value']
+    )
