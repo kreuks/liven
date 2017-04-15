@@ -38,7 +38,9 @@ class WeatherForecast(Story):
         lng = driver.find_element_by_id('lng').get_attribute('value')
         # Close the driver to save memory
         driver.close()
-        return lat, lng
+        return (
+            lat, lng
+        )
 
     def get_json_data(self, city, type_req):
         url_json = self.URLapi.format(type_req, city, self.keyAPI)
@@ -59,32 +61,38 @@ class WeatherForecast(Story):
             temp_time = now + datetime.timedelta(days=-1)
         else:
             temp_time = now
-        adj_time_componen = [k for k,v in Weather.ADJ_TIME_FRASE.items() if k in frase_time]
+        adj_time_componen = [k for k, v in Weather.ADJ_TIME_FRASE.items() if k in frase_time]
         if len(adj_time_componen) != 0:
             requested_time = datetime.datetime(temp_time.year, temp_time.month, temp_time.day,
                                                Weather.ADJ_TIME_FRASE[adj_time_componen[0]], 0, 0, 0)
         else:
             requested_time = datetime.datetime(temp_time.year, temp_time.month, temp_time.day,
                                                12, 0, 0, 0)
-        return requested_time.strftime("%Y-%m-%d %H:%M:%S")
+        return (
+            requested_time.strftime("%Y-%m-%d %H:%M:%S")
+        )
 
     def parse_json(self, data_json, request_type, time_value=None):
+        LOGGER.info(
+            '[WEATHER] Parse Json'
+        )
         if request_type == 'weather':
             main_weather = data_json[request_type][0]['main']
             summary_weather = data_json[request_type][0]['description']
             humidity_value = data_json['main']['humidity']
         elif request_type == 'forecast':
-            data_in_time = [ i for i in data_json['list'] if i['dt_txt'] == time_value ]
+            data_in_time = [i for i in data_json['list'] if i['dt_txt'] == time_value]
             main_weather = data_in_time[0]['weather'][0]['main']
             summary_weather = data_in_time[0]['weather'][0]['description']
             humidity_value = data_in_time[0]['main']['humidity']
-        return main_weather, summary_weather, humidity_value
+        return (
+            main_weather, summary_weather, humidity_value
+        )
 
     def run_story(self, context):
         result = get_result_story()
         # Handle no Location problem and get lat long value
         if Context.LOCATION not in context:
-            # TODO : Return context data for the next step and the response
             result['context'] = context
             result['response'] = 'Lokasi nya mana euyy...., yang lengkap lah....'
             return result
@@ -101,7 +109,6 @@ class WeatherForecast(Story):
         else:
             key_time = self.time_frase_conversion(Context.TODAY_TIME_ADJ)
             type_weather_request = 'weather'
-
         # Get JSON Rock !!!!
         respond_code, data_json = self.get_json_data(context[Context.LOCATION], type_weather_request)
         if respond_code != 200:
@@ -113,7 +120,7 @@ class WeatherForecast(Story):
         # Return Response
         if type_weather_request == 'forecast':                          # Enter 1'st layer response (time type)
             response = RESPONSES[Weather.WEATHER_FORECAST]
-        else :
+        else:
             response = RESPONSES[Weather.WEATHER_TODAY]
         choose_resp_type = random.randint(0, len(response) - 1)
         response = response[Weather.RESP_VARIATION[choose_resp_type]]   # Enter 2'nd layer response (param amount)
@@ -124,9 +131,9 @@ class WeatherForecast(Story):
             result['response'] = response.format(main_weather, humidity_value)
         else:
             result['response'] = response.format(main_weather, summary_weather)
-        #response = response[random.randint(0, len(response) - 1)]
+        # Remove unused context
         result['context'] = {
-                k: v for k, v in context.items() if k != Context.WEATHER_KEY and v != Intent.WEATHER_FORECAST and
-                                                    k != Context.FUT_TIME_ADJ
+            k: v for k, v in context.items() if k != Context.WEATHER_KEY
+                                                and v != Intent.WEATHER_FORECAST and k != Context.FUT_TIME_ADJ
         }
         return result
