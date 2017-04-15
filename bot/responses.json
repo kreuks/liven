@@ -57,5 +57,41 @@
     "Makasih deh udah chat ama gw",
     "Thanks bro",
     "Ada lagi ga bro?"
+  ],
+  "weather_today": [
+    [
+      // MAIN only
+      "Hari ini {0} sob",
+      "Dugaan ane {0} bray",
+      "Mpos {0}!!"
+    ],
+    [
+      // for MAIN and HUM
+      "Prediksi gw cuaca hari ini bakal {0} dengan tingkat kelembapan {1}",
+      "Kelembapannya {0}, cuacanya {1}"
+    ],
+    [
+      // for MAIN and DESC
+      "{1} kliatanya, intinya {0}",
+      "Abakadabraaaa.... {1}, {0} om"
+    ]
+  ],
+  "weather_forecast": [
+    [
+      // MAIN only
+      "{0} cuy!",
+      "Prediksi gue {0}",
+      "Kalo hasil terawangan, {0}"
+    ],
+    [
+      // for MAIN and HUM
+      "Cuaca besok bakal {0} dengan tingkat kelembapan {1}",
+      "Kliatanya sih besok {0} dengan tingkat kelembapan {1}"
+    ],
+    [
+      // for MAIN and DESC
+      "Cuacanya sih {0}, {1}",
+      "Hasil terawang gw menunjukkan kalo besok {0}, {1}"
+    ]
   ]
 }

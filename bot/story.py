@@ -1,4 +1,4 @@
-from bot.stories import base, greetings, play_song, web_search, direction
+from bot.stories import base, greetings, play_song, web_search, direction, weatherie
 
 
 class Stories(object):
@@ -10,7 +10,8 @@ class Stories(object):
         web_search.WebSearchWithKeyword(),
         direction.DirectionDelay(),
         direction.Direction(),
-        direction.DirectionFlight()
+        direction.DirectionFlight(),
+        weatherie.WeatherForecast()
     ]
 
     @classmethod

@@ -9,11 +9,6 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
 
-# TODO:
-# 1. add location procedure to fetch city name
-# DONE 2. convert location name to lat long
-# 3. Request by API to openweathermap.org or darksky.net/dev/docs (OW-API-KEY : fa7ed6cfa9e8cc674f19ae0e9dddaf45)
-
 class WeatherForecast(Story):
     def __init__(self):
         self.URLlatlong = 'http://www.latlong.net/'
@@ -47,11 +42,11 @@ class WeatherForecast(Story):
 
     def get_json_data(self, city, type_req):
         url_json = self.URLapi.format(type_req, city, self.keyAPI)
-        dataJson = requests.get(url_json)
-        if dataJson.status_code == 200:
-            return dataJson.status_code, dataJson.json()
+        data_json = requests.get(url_json)
+        if data_json.status_code == 200:
+            return data_json.status_code, data_json.json()
         else:
-            return dataJson.status_code, 'ERROR'
+            return data_json.status_code, 'ERROR'
 
     def time_frase_conversion(self, frase_time):
         LOGGER.info(
@@ -85,8 +80,6 @@ class WeatherForecast(Story):
 
     def run_story(self, context):
         result = get_result_story()
-        response = RESPONSES[Weather.WEATHER_RESP]
-        response = response[random.randint(0, len(response)-1)]
         # Handle no Location problem and get lat long value
         if Context.LOCATION not in context:
             # TODO : Return context data for the next step and the response
@@ -108,12 +101,27 @@ class WeatherForecast(Story):
 
         # Get JSON Rock !!!!
         respond_code, data_json = self.get_json_data(context[Context.LOCATION], type_weather_request)
-        if respond_code == 200:
-            #Process the message
-        else:
+        if respond_code != 200:
             result['context'] = context
             result['response'] = 'Lagi ada masalah cuy: {}, coba lagi ya...'.format(respond_code)
             return result
         # Parse the data
         main_weather, summary_weather, humidity_value = self.parse_json(data_json, type_weather_request, key_time)
         # Return Response
+        if type_weather_request == 'forecast':
+            response = RESPONSES[Weather.WEATHER_FORECAST]
+        else :
+            response = RESPONSES[Weather.WEATHER_TODAY]
+        choose_resp_type = random.randint(0, len(response) - 1)
+        response = response[choose_resp_type][random.randint(0, len(response[choose_resp_type]) - 1)]
+        if choose_resp_type == 0:
+            result['response'] = response.format(main_weather)
+        elif choose_resp_type == 1:
+            result['response'] = response.format(main_weather, humidity_value)
+        else:
+            result['response'] = response.format(main_weather, summary_weather)
+        #response = response[random.randint(0, len(response) - 1)]
+        result['context'] = {
+                k: v for k, v in context.items() if k != Context.WEATHER_KEY and v != Intent.WEATHER_FORECAST
+        }
+        return result
