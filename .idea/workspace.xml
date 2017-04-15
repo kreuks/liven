@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="37b2307d-5e55-4da0-b4e5-701b7f7d74f0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bot/constants.py" afterPath="$PROJECT_DIR$/bot/constants.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bot/responses.json" afterPath="$PROJECT_DIR$/bot/responses.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bot/stories/weatherie.py" afterPath="$PROJECT_DIR$/bot/stories/weatherie.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -313,7 +310,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492267858658</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Finish up, tested">
+      <created>1492272761638</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1492272761638</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -345,7 +349,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
     <MESSAGE value="Finish up, not tested yet" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finish up, not tested yet" />
+    <MESSAGE value="Finish up, tested" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finish up, tested" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
