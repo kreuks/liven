@@ -80,6 +80,9 @@ class WeatherForecast(Story):
             result['context'] = context
             result['response'] = 'Lokasi nya mana euyy...., yang lengkap lah....'
             return result
+        elif Context.ORIGIN in context:
+            # Create context location from context origin
+            context[Context.LOCATION] = context[Context.ORIGIN]
         # else :
         #    latitude, longitude = self.get_lat_long(context[Context.LOCATION])
         # Return if contain past time adj
