@@ -3,7 +3,7 @@ import requests
 import random
 
 from bot.stories.base import Story
-from bot.constants import Context, Intent, RESPONSES, LOGGER, Weather
+from bot.constants import Context, Intent, RESPONSES, LOGGER, Weather, Error_response
 from bot.util import get_result_story
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -73,12 +73,18 @@ class WeatherForecast(Story):
             requested_time.strftime("%Y-%m-%d %H:%M:%S")
         )
 
+    @staticmethod
+    def response_error(context, error_type):
+        result = get_result_story()
+        result['context'] = context
+        result['response'] = Error_response.WEATHER_ERROR[error_type]
+        return result
+
     def run_story(self, context):
         result = get_result_story()
         # Handle no Location problem and get lat long value
         if Context.LOCATION not in context:
-            result['context'] = context
-            result['response'] = 'Lokasi nya mana euyy...., yang lengkap lah....'
+            result = self.response_error(context, Error_response.LOCATION_NOT_FOUND)
             return result
         elif Context.ORIGIN in context:
             # Create context location from context origin
@@ -87,8 +93,7 @@ class WeatherForecast(Story):
         #    latitude, longitude = self.get_lat_long(context[Context.LOCATION])
         # Return if contain past time adj
         if Context.PAST_TIME_ADJ in context:
-            result['context'] = context
-            result['response'] = 'Masa lu lupa kemarin cuacanya gimana... Parah...'
+            result = self.response_error(context, Error_response.USING_PAST_TIME)
             return result
         elif Context.FUT_TIME_ADJ in context:
             key_time = self.time_frase_conversion(context[Context.FUT_TIME_ADJ])
@@ -99,8 +104,7 @@ class WeatherForecast(Story):
         # Get JSON Rock !!!!
         respond_code, data_json = self.get_json_data(context[Context.LOCATION], type_weather_request)
         if respond_code != 200:
-            result['context'] = context
-            result['response'] = 'Lagi ada masalah cuy: {}, coba lagi ya...'.format(respond_code)
+            result = self.response_error(context, Error_response.RESPOND_ERROR)
             return result
         # Parse the data
         main_weather, summary_weather, humidity_value = parse_json(data_json, type_weather_request, key_time)

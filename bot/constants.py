@@ -51,3 +51,13 @@ class Weather(object):
     WEATHER_FORECAST = 'weather_forecast'
     WEATHER_TODAY = 'weather_today'
     RESP_VARIATION = ['main_only', 'main_hum', 'main_desc']
+
+class Error_response(object):
+    LOCATION_NOT_FOUND = 'location_not_found'
+    USING_PAST_TIME = 'using_past_time'
+    RESPOND_ERROR = 'responcode_error'
+    WEATHER_ERROR = {
+        'location_not_found': 'Lokasi nya mana euyy...., yang lengkap lah....',
+        'using_past_time': 'Masa lu lupa kemarin cuacanya gimana... Parah...',
+        'responcode_error': 'Lagi ada masalah cuy: {}, coba lagi ya...',
+    }
